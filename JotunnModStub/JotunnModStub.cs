@@ -47,7 +47,7 @@ namespace JotunnModStub
         }
         private void Update()
         {
-            DisableStamina();
+            DisableStamina();sdfasf
         }
     }
 }
