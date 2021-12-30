@@ -35,10 +35,19 @@ namespace JotunnModStub
             Jotunn.Logger.LogInfo("FejdStartup is going to awake");
             orig(self);
         }
+
+        private void DisableStamina()
+        {
+            if (Player.m_localPlayer == null || Player.m_localPlayer.m_runStaminaDrain == 0 && Player.m_localPlayer.m_dodgeStaminaUsage == 0 && Player.m_localPlayer.m_sneakStaminaDrain == 0 && Player.m_localPlayer.m_jumpStaminaUsage == 0) { return; }
+            Player.m_localPlayer.m_runStaminaDrain = 0;
+            Player.m_localPlayer.m_dodgeStaminaUsage = 0;
+            Player.m_localPlayer.m_sneakStaminaDrain = 0;
+            Player.m_localPlayer.m_jumpStaminaUsage = 0;
+
+        }
         private void Update()
         {
-            if(Player.m_localPlayer.CanMove() == false) { return; }
-            Player.m_localPlayer.m_runStaminaDrain = 0;
+            DisableStamina();
         }
     }
 }
