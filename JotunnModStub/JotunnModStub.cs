@@ -8,7 +8,6 @@ using BepInEx;
 using Jotunn.Entities;
 using Jotunn.Managers;
 
-
 namespace JotunnModStub
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
@@ -51,9 +50,22 @@ namespace JotunnModStub
             Player.m_localPlayer.m_maxCarryWeight = 600;
             
         }
+
+        private void TeleportOres()
+        {
+            foreach (ItemDrop.ItemData itemData in Player.m_localPlayer.m_inventory.GetAllItems())
+            {
+                itemData.m_shared.m_teleportable = true;
+            }
+        }
+
         private void Update()
         {
-            DisableStamina();sdfasf
+            DisableStamina();
+            if (Player.m_localPlayer)
+            {    
+                if (Player.m_localPlayer.m_inventory.IsTeleportable() == false) { TeleportOres(); }
+            } 
         }
     }
 }
