@@ -37,8 +37,7 @@ namespace JotunnModStub
 
         private void DisableStamina()
         {
-            if (Player.m_localPlayer == null || 
-                Player.m_localPlayer.m_runStaminaDrain == 0 && 
+            if (Player.m_localPlayer.m_runStaminaDrain == 0 && 
                 Player.m_localPlayer.m_dodgeStaminaUsage == 0 && 
                 Player.m_localPlayer.m_sneakStaminaDrain == 0 && 
                 Player.m_localPlayer.m_jumpStaminaUsage == 0) { return; }
@@ -58,13 +57,32 @@ namespace JotunnModStub
             }
         }
 
+        private void CheckInventoryChanged()
+        {
+            int m_oldItemsInInv = 0;
+            int m_itemsInInv = Player.m_localPlayer.m_inventory.NrOfItemsIncludingStacks();
+            if (m_itemsInInv == m_oldItemsInInv) { return; }
+            foreach (ItemDrop.ItemData itemData in Player.m_localPlayer.m_inventory.m_inventory)
+            {
+                if (itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Material ||
+                    itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Consumable ||
+                    itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Ammo ||
+                    itemData.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Utility)
+                {
+                    itemData.m_shared.m_maxStackSize = 999;
+                }
+                
+            }
+        }
+
         private void Update()
         {
-            DisableStamina();
             if (Player.m_localPlayer)
-            {    
+            {
+                DisableStamina();
                 if (Player.m_localPlayer.m_inventory.IsTeleportable() == false) { TeleportOres(); }
-            } 
+                CheckInventoryChanged();
+            }
         }
     }
 }
