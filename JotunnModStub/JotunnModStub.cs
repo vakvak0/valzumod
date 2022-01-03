@@ -48,8 +48,7 @@ namespace JotunnModStub
             Player.m_localPlayer.m_dodgeStaminaUsage = 0;
             Player.m_localPlayer.m_sneakStaminaDrain = 0;
             Player.m_localPlayer.m_jumpStaminaUsage = 0;
-            Player.m_localPlayer.m_maxCarryWeight = 600;
-            
+            Player.m_localPlayer.m_maxCarryWeight = 600; 
         }
         private void Update()
         {
